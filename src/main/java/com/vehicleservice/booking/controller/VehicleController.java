@@ -3,6 +3,8 @@ package com.vehicleservice.booking.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +24,10 @@ public class VehicleController {
 	private VehicleService vehicleService;
 	
 	@PostMapping("/add")
-	public Vehicle addVehicle(@Valid @RequestBody Vehicle vehicle)
+	public ResponseEntity<Vehicle> addVehicle(@Valid @RequestBody Vehicle vehicle)
 	{
-		return vehicleService.addVehicle(vehicle);
+		Vehicle savedVehicle=vehicleService.saveVehicle(vehicle);
+		return new ResponseEntity<>(savedVehicle,HttpStatus.CREATED);
 	}
 	
 	@GetMapping

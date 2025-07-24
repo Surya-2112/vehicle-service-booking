@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.vehicleservice.booking.model.Vehicle;
 import com.vehicleservice.booking.repository.VehicleRepository;
+
+import jakarta.validation.Valid;
 @Service
 public class VehicleService {
 	@Autowired
 	private VehicleRepository vehicleRepository;
 	
-	public Vehicle addVehicle(Vehicle vehicle)
+	public Vehicle saveVehicle(Vehicle vehicle)
 	{
 		return vehicleRepository.save(vehicle);
 	}
@@ -26,4 +28,5 @@ public class VehicleService {
 	{
 		return vehicleRepository.findByRegistrationNumber(registrationNumber);
 	}
+
 }

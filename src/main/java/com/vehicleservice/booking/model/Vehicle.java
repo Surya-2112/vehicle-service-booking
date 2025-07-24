@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="vehicles")
@@ -18,6 +19,7 @@ public class Vehicle {
 	private long id;
 	
 	@NotBlank(message="Brand is required")
+	@Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$", message = "Invalid vehicle number format")
 	private String brand;
 	
 	@NotBlank(message="Model is required")
@@ -31,9 +33,12 @@ public class Vehicle {
 	@NotBlank(message="Email  is required")
 	private String ownerEmail;
 	
+	@NotBlank(message = "Vehicle type is required")
+    private String vehicleType;
+	
 	Vehicle(){}
-	public Vehicle(String brand,String model,String registrationNumber,String ownerEmail)
-	{
+	public Vehicle(String vehicleType,String brand,String model,String registrationNumber,String ownerEmail)
+	{   this.vehicleType=vehicleType;
 		this.brand=brand;
 		this.model=model;
 		this.registrationNumber=registrationNumber;
@@ -68,5 +73,11 @@ public class Vehicle {
 	}
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
+	}
+	public String getVehicleType() {
+		return vehicleType;
+	}
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
 	}
 }

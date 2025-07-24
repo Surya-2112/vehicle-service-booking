@@ -21,14 +21,14 @@ public class VehicleServiceBookingApplication {
 		return args-> {
 			if(userRepository.findByEmail("text@example.com")==null)
 			{
-				User user=new User("test","text@example.com","test123");
+				User user=new User("test","text@example.com","test123","1234567890");
 				userRepository.save(user);
 				System.out.println(" Test user inserted successfully.");
 			}else {
 				System.out.println("Test user already exists.");
 			}
 			if(vehicleRepository.findByRegistrationNumber("TN01AB1234")==null)
-			{   Vehicle vehicle=new Vehicle("Hyundai", "i20", "TN01AB1234", "test@example.com");
+			{   Vehicle vehicle=new Vehicle("Two-Wheeler","Hyundai", "i20", "TN01AB1234", "test@example.com");
 				vehicleRepository.save(vehicle);
 				System.out.println(" Test Vehicle inserted successfully.");
 			}else {
