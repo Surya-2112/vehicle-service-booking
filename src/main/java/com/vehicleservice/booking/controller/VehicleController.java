@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vehicleservice.booking.exception.DuplicateResourceException;
+import com.vehicleservice.booking.exception.ResourceNotFoundException;
 import com.vehicleservice.booking.model.Vehicle;
 import com.vehicleservice.booking.service.VehicleService;
 
@@ -25,7 +27,12 @@ public class VehicleController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<Vehicle> addVehicle(@Valid @RequestBody Vehicle vehicle)
-	{
+	{   
+		Vehicle exitingVehicle=vehicleService.getVehiclesByRegistrationNumber(vehicle.getRegistrationNumber());
+		if(exitingVehicle!=null)
+		{
+			throw new DuplicateResourceException("Vehicle with registration number "+vehicle.getRegistrationNumber()+"already exits");
+		}
 		Vehicle savedVehicle=vehicleService.saveVehicle(vehicle);
 		return new ResponseEntity<>(savedVehicle,HttpStatus.CREATED);
 	}
@@ -37,8 +44,13 @@ public class VehicleController {
 	}
 	
 	@GetMapping("/{registrationNumber}")
-	public Vehicle getByRegistrationNumber(@PathVariable String registrationNumber)
-	{
-		return vehicleService.getVehiclesByRegistrationNumber(registrationNumber);
+	public ResponseEntity<Vehicle> getByRegistrationNumber(@PathVariable String registrationNumber)
+	{	
+		Vehicle exitingVehicle=vehicleService.getVehiclesByRegistrationNumber(registrationNumber);
+		if(exitingVehicle==null)
+		{
+			throw new ResourceNotFoundException("Vehicle with registration Number "+registrationNumber+" not found.");
+		}
+		return new ResponseEntity<>(exitingVehicle,HttpStatus.OK);
 	}
 }

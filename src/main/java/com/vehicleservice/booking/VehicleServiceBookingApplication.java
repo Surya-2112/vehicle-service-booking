@@ -16,8 +16,9 @@ public class VehicleServiceBookingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VehicleServiceBookingApplication.class, args);
 	}
-	@Bean
-	public CommandLineRunner run(UserRepository userRepository,VehicleRepository vehicleRepository) {
+
+    @Bean
+    CommandLineRunner run(UserRepository userRepository, VehicleRepository vehicleRepository) {
 		return args-> {
 			if(userRepository.findByEmail("text@example.com")==null)
 			{

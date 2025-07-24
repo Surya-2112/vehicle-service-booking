@@ -18,6 +18,16 @@ public class GlobalExceptionHandler {
 		error.put("message", ex.getMessage());
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(DuplicateResourceException.class)
+	public ResponseEntity<Object> handlerDuplicateResourceException(DuplicateResourceException ex)
+	{
+		Map<String,Object> error=new HashMap<>();
+		error.put("timestamp",LocalDateTime.now());
+		error.put("message", ex.getMessage());
+		return new ResponseEntity<>(error,HttpStatus.CONFLICT);
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleGenricException(Exception ex)
 	{
@@ -27,4 +37,5 @@ public class GlobalExceptionHandler {
 		error.put("details",ex.getMessage());
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
+	
 }

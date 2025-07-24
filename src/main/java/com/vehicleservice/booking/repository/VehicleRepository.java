@@ -1,7 +1,5 @@
 package com.vehicleservice.booking.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.vehicleservice.booking.model.Vehicle;
